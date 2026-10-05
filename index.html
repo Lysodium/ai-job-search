@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Job Search Dashboard</title>
+  <meta name="description" content="Private, browser-local job application tracker.">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Job Search dashboard home">
+      <span class="brand-mark">LZ</span>
+      <span><strong>Job Search</strong><small>Private workspace</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="save-state" id="saveState"><span></span> Saved locally</span>
+      <button class="button secondary" id="exportButton" type="button">Export CSV</button>
+      <button class="button primary" id="addButton" type="button">+ Add role</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">APPLICATION COMMAND CENTER</p>
+        <h1>Move the right opportunities<br><em>forward.</em></h1>
+        <p class="hero-copy">Track every conversation, deadline, and next step without losing sight of role fit.</p>
+      </div>
+      <div class="today-card">
+        <span>Today</span>
+        <strong id="todayDate"></strong>
+        <small id="todayPrompt">Review your drafted applications</small>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Pipeline summary">
+      <article class="metric metric-total"><span class="metric-icon">◎</span><div><small>Total roles</small><strong id="metricTotal">0</strong><p>in your pipeline</p></div></article>
+      <article class="metric metric-active"><span class="metric-icon">↗</span><div><small>Active</small><strong id="metricActive">0</strong><p>applied or interviewing</p></div></article>
+      <article class="metric metric-interview"><span class="metric-icon">◇</span><div><small>Interviews</small><strong id="metricInterviews">0</strong><p>current stages</p></div></article>
+      <article class="metric metric-fit"><span class="metric-icon">✦</span><div><small>Average fit</small><strong id="metricFit">0</strong><p>out of 100</p></div></article>
+    </section>
+
+    <section class="workspace">
+      <div class="workspace-heading">
+        <div><p class="eyebrow">YOUR PIPELINE</p><h2>Applications</h2></div>
+        <div class="view-toggle" aria-label="View options">
+          <button type="button" class="active" data-view="board" aria-label="Board view">▦</button>
+          <button type="button" data-view="list" aria-label="List view">☷</button>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search company, role, or sector…"></label>
+        <div class="status-filters" id="statusFilters" role="group" aria-label="Filter by status"></div>
+        <select id="sortSelect" aria-label="Sort applications">
+          <option value="fit-desc">Highest fit</option>
+          <option value="updated-desc">Recently updated</option>
+          <option value="company-asc">Company A–Z</option>
+          <option value="date-desc">Newest first</option>
+        </select>
+      </div>
+
+      <div id="pipeline" class="pipeline" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state" hidden><span>⌕</span><h3>No matching roles</h3><p>Try another search or status filter.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Private data stays in this browser. Export CSV to sync changes back to the repository.</p>
+    <button class="text-button" id="resetButton" type="button">Reset local changes</button>
+  </footer>
+
+  <dialog id="jobDialog" class="job-dialog">
+    <form method="dialog" id="jobForm">
+      <div class="dialog-header">
+        <div><p class="eyebrow" id="dialogEyebrow">UPDATE APPLICATION</p><h2 id="dialogTitle">Application</h2></div>
+        <button class="icon-button close-dialog" type="button" aria-label="Close">×</button>
+      </div>
+      <input type="hidden" id="jobId">
+      <div class="form-grid">
+        <label>Company<input id="jobCompany" required></label>
+        <label>Role<input id="jobRole" required></label>
+        <label>Status<select id="jobStatus"></select></label>
+        <label>Fit score<input id="jobFit" type="number" min="0" max="100" step="0.1"></label>
+        <label>Application date<input id="jobDate" type="date"></label>
+        <label>Next action date<input id="jobNextDate" type="date"></label>
+        <label class="full">Next action<input id="jobNextAction" placeholder="Follow up, prepare for screen…"></label>
+        <label class="full">Notes<textarea id="jobNotes" rows="4" placeholder="Contacts, interview feedback, reminders…"></textarea></label>
+      </div>
+      <div class="dialog-links" id="dialogLinks"></div>
+      <div class="dialog-actions">
+        <button class="button danger" id="deleteButton" type="button">Delete</button>
+        <span></span>
+        <button class="button secondary close-dialog" type="button">Cancel</button>
+        <button class="button primary" id="saveButton" type="submit" value="default">Save changes</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="dashboard-data.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

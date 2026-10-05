@@ -59,6 +59,12 @@ files ready    with fit ratings     (LaTeX, tailored)
 
 The framework encodes career guidance best practices, including structured evaluation criteria, forward-looking cover letter framing, and optional salary benchmarking.
 
+## Not a developer? Use it in Claude Cowork
+
+You don't need a terminal, Git or GitHub skills. Download one file, install it in the Claude desktop app's **Cowork** mode, and say *"Set up my job search."* Claude creates your job-search folder, builds your profile with you, and runs every workflow below from plain-English requests ("find me new jobs", "apply to this job", "prepare me for my interview").
+
+**[Step-by-step Cowork guide →](COWORK.md)**
+
 ## Prerequisites
 
 - [Claude Code](https://claude.com/claude-code) (CLI). Using a different agent tool (Codex, Antigravity, Gemini CLI)? Start at [`AGENTS.md`](AGENTS.md) - the portal search skills work there out of the box, and [community forks](https://github.com/MadsLorentzen/ai-job-search/discussions/78) adapt the full workflow.
@@ -201,11 +207,15 @@ ai-job-search/
 │   ├── linkedin-search/               # LinkedIn public job listings (country-agnostic)
 │   └── freehire-search/               # freehire.me tech job aggregator (multi-market, REST API)
 ├── cv/
-│   └── main_example.tex               # moderncv LaTeX template
+│   ├── main_example.tex               # moderncv LaTeX template
+│   └── <company-slug>/                # Created by /apply per company, e.g. google_deepmind/
+│       └── main_<company>_<role>.tex
 ├── cover_letters/
 │   ├── cover.cls                      # Custom cover letter LaTeX class
 │   ├── cover_example.tex              # Example cover letter (structural reference + CI smoke test)
-│   └── OpenFonts/                     # Lato + Raleway fonts
+│   ├── OpenFonts/                     # Lato + Raleway fonts
+│   └── <company-slug>/                # Created by /apply per company, e.g. google_deepmind/
+│       └── cover_<company>_<role>.tex
 ├── templates/                         # Custom templates registered via /add-template
 │   └── README.md                      # Folder layout instructions
 ├── documents/                         # Career source materials for /setup Path A and /expand

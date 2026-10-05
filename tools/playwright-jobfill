@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Playwright CLI cannot reliably initialize from macOS-protected Documents
+# directories under every Node version. Launch it from $HOME while retaining
+# the project configuration and a dedicated persistent browser profile.
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CONFIG_TEMPLATE="$ROOT/.playwright/cli.config.json"
+SESSION="job-application"
+
+if ! command -v playwright-cli >/dev/null 2>&1; then
+  echo "playwright-cli is not installed. Run: npm install -g @playwright/cli@latest" >&2
+  exit 1
+fi
+
+export PWTEST_SOCKETS_DIR=/tmp/pw-jobfill-sockets
+mkdir -p "$HOME/.pi/browser-profiles/job-applications" /tmp/ai-job-search-playwright "$PWTEST_SOCKETS_DIR"
+chmod 700 "$HOME/.pi/browser-profiles/job-applications" /tmp/ai-job-search-playwright "$PWTEST_SOCKETS_DIR"
+
+# The checked-in config uses a __HOME__ placeholder so no machine-specific
+# path is committed; render it for this user before launching.
+CONFIG=/tmp/ai-job-search-playwright/cli.config.json
+sed "s|__HOME__|$HOME|g" "$CONFIG_TEMPLATE" > "$CONFIG"
+
+cd "$HOME"
+command="${1:-}"
+if [[ -z "$command" ]]; then
+  echo "Usage: bash tools/playwright-jobfill <open|goto|snapshot|find|fill|click|select|check|upload|close|...> [args...]" >&2
+  exit 2
+fi
+shift
+
+if [[ "$command" == "open" ]]; then
+  exec playwright-cli "-s=$SESSION" open "$@" --config "$CONFIG"
+fi
+exec playwright-cli "-s=$SESSION" "$command" "$@"

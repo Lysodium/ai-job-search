@@ -10,14 +10,14 @@ framework_version: 1.4.3
 
 All CVs use the moderncv LaTeX package with the "banking" style and "blue" color scheme.
 
-**Output file:** `cv/main_<company>_<role>.tex`
+**Output file:** `cv/<company-slug>/main_<company>_<role>.tex` — `<company-slug>` is the company name alone run through the **Subfolder naming** rule in `documents/README.md` (e.g. `Google DeepMind` → `google_deepmind`), grouping every CV drafted for one employer together.
 **Compile with:** **lualatex** on MiKTeX/TeX Live. pdflatex often fails on modern MiKTeX installs with `fontawesome5` font-expansion errors; lualatex handles the same sources cleanly.
 **Master reference:** `cv/main_example.tex` (comprehensive CV with all competencies, experience, and achievements - use as source when building targeted CVs)
 
 ### Compile command
 
 ```bash
-cd cv && lualatex -interaction=nonstopmode main_<company>_<role>.tex
+cd cv/<company-slug> && lualatex -interaction=nonstopmode main_<company>_<role>.tex
 ```
 
 Expected output: `Output written on main_<company>_<role>.pdf (1 page, ...)`. Any page count greater than 1 is a failure that must be fixed before presenting to the user.
@@ -236,7 +236,7 @@ Related trap: a bullet whose text begins with a literal `[` must be braced - `\i
 
 After writing the CV and before presenting to the user, always compile and visually inspect the PDF. Iterate until the layout is clean. Workflow:
 
-1. Run `lualatex -interaction=nonstopmode main_<company>_<role>.tex`
+1. Run `lualatex -interaction=nonstopmode main_<company>_<role>.tex` from inside `cv/<company-slug>/`
 2. Check the output page count: must be at most 1
 3. Read the PDF via the Read tool and visually inspect the page
 4. Confirm nothing is clipped at the bottom margin and the layout remains readable
@@ -254,7 +254,7 @@ Do not pad merely to fill whitespace. Restore a previously cut item only when it
 Most employers run CVs through an ATS before a human sees them, and the ATS reads the PDF's embedded **text layer**, not the rendered page. A CV can pass visual inspection and still extract as garbage. After the layout passes the compile-and-inspect loop, verify the text layer:
 
 ```bash
-python tools/verify_pdf.py cv/main_<company>_<role>.pdf --pages 1 --dump-text cv/main_<company>_<role>.txt
+python tools/verify_pdf.py cv/<company-slug>/main_<company>_<role>.pdf --pages 1 --dump-text cv/<company-slug>/main_<company>_<role>.txt
 ```
 
 Extraction tries **pypdf** first (`pip install pypdf`, BSD license), then Poppler `pdftotext`. If a fallback still uses `pdftotext -layout`, it must also pass `-enc UTF-8`: Xpdf-based builds default to Latin-1, which makes every non-ASCII character in a perfectly good CV read back as a replacement character. If neither extractor is available, skip the mechanical check with a warning and rely on the visual PDF read for keyword coverage.

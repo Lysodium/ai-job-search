@@ -115,6 +115,8 @@ Write into it:
 
     cd <output dir> && <the full declared command, e.g. lualatex -interaction=nonstopmode <file>.tex or typst compile <file>.typ <file>.pdf>
 
+`<output dir>` is the per-company subfolder (`cv/<company-slug>/` or `cover_letters/<company-slug>/`) `/apply` writes into. If any copied class/package/font file is referenced by a relative path instead of being duplicated into that subfolder, either write the command's working directory as the shared top-level folder with `-output-directory=<company-slug>` (see the stock cover-letter template in `06-cover-letter-templates.md` for the pattern), or use a relative path from the subfolder back to the shared assets (e.g. `../<font-dir>`) — whichever the declared toolchain supports.
+
 ## Style rules
 
 - <rule 1: colors, section order, heading style, ...>
@@ -164,7 +166,7 @@ Insert (or replace, if one exists) this block immediately after the file's H1 ti
 > - **Compile command:** `<the full declared command>` (not the command named in the stock guidance below — `/apply`'s compile step must use this instead)
 > - **Fonts:** <font summary, including any path note for bundled fonts>
 > - **Page limit:** exactly <N> page(s)
-> - **Output file:** `cv/main_<company>_<role><source-extension>` / `cover_letters/cover_<company>_<role><source-extension>`; copy any class/package/font files the template needs into the output directory, or reference them by relative path
+> - **Output file:** `cv/<company-slug>/main_<company>_<role><source-extension>` / `cover_letters/<company-slug>/cover_<company>_<role><source-extension>`; copy any class/package/font files the template needs into the output directory, or reference them by relative path
 <!-- END ACTIVE-TEMPLATE -->
 ```
 
