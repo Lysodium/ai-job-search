@@ -17,3 +17,6 @@ To prevent duplication and configuration drift across different AI agent framewo
    - Do not duplicate these rules or specifications. Treat `.claude/` files as the single source of truth.
 3. **Portal Search Skills:**
    - Job-portal search CLIs live under [.agents/skills/](.agents/skills/) in the portable Agent Skills format (with a `SKILL.md` per portal). Codex and Antigravity discover these automatically; the `/scrape` workflow in [.claude/skills/job-scraper/](.claude/skills/job-scraper/) orchestrates them.
+4. **Claude Cowork:**
+   - Cowork reaches this folder through a connected-folder bridge with a different tool set. Before following any `.claude/` workflow in Cowork, read [cowork/RUNTIME.md](cowork/RUNTIME.md): it maps Claude Code tools and conventions onto Cowork without changing any workflow rule.
+   - The installable Cowork plugin (`cowork/ai-job-search.plugin`, built by `tools/build_cowork_plugin.py`) contains only thin pointer skills plus a clean workspace template; it never duplicates `.claude/` content. User-facing instructions are in [COWORK.md](COWORK.md).

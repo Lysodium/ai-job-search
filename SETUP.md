@@ -1,5 +1,7 @@
 # Setup Guide
 
+> **Prefer not to use a terminal?** Follow the [Claude Cowork guide](COWORK.md) instead - it installs as a single plugin and Claude does the setup for you.
+
 Step-by-step instructions for getting the AI Job Search framework running.
 
 ## 1. Prerequisites

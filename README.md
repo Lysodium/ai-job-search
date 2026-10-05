@@ -59,6 +59,12 @@ files ready    with fit ratings     (LaTeX, tailored)
 
 The framework encodes career guidance best practices, including structured evaluation criteria, forward-looking cover letter framing, and optional salary benchmarking.
 
+## Not a developer? Use it in Claude Cowork
+
+You don't need a terminal, Git or GitHub skills. Download one file, install it in the Claude desktop app's **Cowork** mode, and say *"Set up my job search."* Claude creates your job-search folder, builds your profile with you, and runs every workflow below from plain-English requests ("find me new jobs", "apply to this job", "prepare me for my interview").
+
+**[Step-by-step Cowork guide →](COWORK.md)**
+
 ## Prerequisites
 
 - [Claude Code](https://claude.com/claude-code) (CLI). Using a different agent tool (Codex, Antigravity, Gemini CLI)? Start at [`AGENTS.md`](AGENTS.md) - the portal search skills work there out of the box, and [community forks](https://github.com/MadsLorentzen/ai-job-search/discussions/78) adapt the full workflow.
