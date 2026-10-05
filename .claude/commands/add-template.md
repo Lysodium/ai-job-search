@@ -82,7 +82,7 @@ Collect:
    - **Bundled font files** (`.ttf`/`.otf` shipped with the template): copy them into the template folder in Step 3 and record the relative path used to load them (LaTeX `\fontspec` `Path`, Typst `#import`/font path, or equivalent).
    - **System / distribution fonts**: record the font name and note that the user's machine must have it installed.
 5. **Style rules** - anything the drafter must preserve when filling the template: color scheme, section order, heading style, spacing conventions, bullet formatting, date format.
-6. **Page limit** - hard page count for the compiled PDF. Default: **2 pages** for a CV, **1 page** for a cover letter. `/apply`'s compile-and-inspect loop enforces this.
+6. **Page limit** - hard page count for the compiled PDF. Default: **1 page** for a CV, **1 page** for a cover letter. `/apply`'s compile-and-inspect loop enforces this.
 7. **Known pitfalls** (optional) - macros/rules that break with certain content (like the stock template's `\lettercontent{}`/`itemize` interaction), characters that need escaping, sections that must not be reordered.
 
 ---
@@ -114,6 +114,8 @@ Write into it:
 ## Compile command
 
     cd <output dir> && <the full declared command, e.g. lualatex -interaction=nonstopmode <file>.tex or typst compile <file>.typ <file>.pdf>
+
+`<output dir>` is the per-company subfolder (`cv/<company-slug>/` or `cover_letters/<company-slug>/`) `/apply` writes into. If any copied class/package/font file is referenced by a relative path instead of being duplicated into that subfolder, either write the command's working directory as the shared top-level folder with `-output-directory=<company-slug>` (see the stock cover-letter template in `06-cover-letter-templates.md` for the pattern), or use a relative path from the subfolder back to the shared assets (e.g. `../<font-dir>`) — whichever the declared toolchain supports.
 
 ## Style rules
 
@@ -164,7 +166,7 @@ Insert (or replace, if one exists) this block immediately after the file's H1 ti
 > - **Compile command:** `<the full declared command>` (not the command named in the stock guidance below — `/apply`'s compile step must use this instead)
 > - **Fonts:** <font summary, including any path note for bundled fonts>
 > - **Page limit:** exactly <N> page(s)
-> - **Output file:** `cv/main_<company>_<role><source-extension>` / `cover_letters/cover_<company>_<role><source-extension>`; copy any class/package/font files the template needs into the output directory, or reference them by relative path
+> - **Output file:** `cv/<company-slug>/main_<company>_<role><source-extension>` / `cover_letters/<company-slug>/cover_<company>_<role><source-extension>`; copy any class/package/font files the template needs into the output directory, or reference them by relative path
 <!-- END ACTIVE-TEMPLATE -->
 ```
 

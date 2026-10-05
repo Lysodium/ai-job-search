@@ -1,0 +1,27 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "isolated": false,
+    "userDataDir": "__HOME__/.pi/browser-profiles/job-applications",
+    "launchOptions": {
+      "headless": false
+    },
+    "contextOptions": {
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    }
+  },
+  "outputDir": "/tmp/ai-job-search-playwright",
+  "outputMode": "file",
+  "console": {
+    "level": "warning"
+  },
+  "timeouts": {
+    "action": 10000,
+    "navigation": 60000
+  },
+  "allowUnrestrictedFileAccess": false,
+  "codegen": "none"
+}

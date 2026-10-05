@@ -67,13 +67,16 @@ REQUIRED_IGNORE_RULES = [
     "**/job_scraper/*.md",
     "*_BehavioralReport.pdf",
     "linkedin_Profile.pdf",
-    "cv/main_*.*",
+    # /**/ matches zero or more directories: covers both the flat legacy
+    # layout and the per-company subfolders (cv/<Company>/main_*.*) that
+    # /apply now files tailored applications under.
+    "cv/**/main_*.*",
     "!cv/main_example.tex",
     # ATS text extractions (/apply step 5d) carry the CV's full text.
-    "cv/*.txt",
-    "cover_letters/cover_*.*",
+    "cv/**/*.txt",
+    "cover_letters/**/cover_*.*",
     # /apply also recognizes the uppercase Cover_* naming variant.
-    "cover_letters/Cover_*.*",
+    "cover_letters/**/Cover_*.*",
     "documents/cv/**",
     "documents/linkedin/**",
     "documents/diplomas/**",
@@ -84,6 +87,7 @@ REQUIRED_IGNORE_RULES = [
     # /interview's prep packs land under documents/applications/**, above.
     "documents/interview/**",
     "job_search_tracker.csv",
+    "dashboard-data.js",
     "gmail_sync/",
     "reports/",
     "upskill/*.md",

@@ -287,19 +287,21 @@ Claude will:
 
 ## 7. Compile your documents
 
-After `/apply` creates the LaTeX files:
+After `/apply` creates the LaTeX files, they live in a per-company subfolder (`cv/<company-slug>/`, `cover_letters/<company-slug>/`, e.g. `google_deepmind`):
 
 ```bash
 # Bash / zsh / Git Bash
-cd cv && lualatex main_<company>_<role>.tex && cd ..
-cd cover_letters && xelatex cover_<company>_<role>.tex && cd ..
+cd cv/<company-slug> && lualatex main_<company>_<role>.tex && cd ../..
+cd cover_letters && xelatex -output-directory=<company-slug> <company-slug>/cover_<company>_<role>.tex
 ```
 
 ```powershell
 # PowerShell
-Set-Location cv; lualatex main_<company>_<role>.tex; Set-Location ..
-Set-Location cover_letters; xelatex cover_<company>_<role>.tex; Set-Location ..
+Set-Location cv/<company-slug>; lualatex main_<company>_<role>.tex; Set-Location ../..
+Set-Location cover_letters; xelatex -output-directory=<company-slug> <company-slug>/cover_<company>_<role>.tex
 ```
+
+The cover letter compiles from `cover_letters/` (not the subfolder) because `cover.cls` and its bundled fonts (`OpenFonts/fonts/...`) are loaded by a path relative to `cover_letters/`; `-output-directory` sends the compiled PDF into the company subfolder instead.
 
 These commands apply to the stock templates (moderncv CV, `cover.cls` cover letter). If you'd rather use your own LaTeX template, run `/add-template` — it captures the template's compile engine, fonts, style rules, and page limit, test-compiles it, and wires it into `/apply`. See the "LaTeX templates" section in the README.
 

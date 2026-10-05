@@ -33,6 +33,7 @@ linkedin_Profile.pdf
 # fetching service; the .env holding it must never be committed.
 .env
 .env.*
+.pi/credentials/
 
 # Personal photos and signatures
 *.jpg
@@ -61,11 +62,14 @@ skills-lock.json
 # The negations stay .tex-only - the stock example files are always LaTeX,
 # and a wildcard negation (!cv/main_example.*) would also re-include build
 # artifacts like main_example.pdf/.aux.
-cv/main_*.*
+# The /**/ matches zero or more directories, so these cover both the flat
+# legacy layout and the per-company subfolders (cv/<Company>/main_*.*) that
+# /apply now files tailored applications under.
+cv/**/main_*.*
 !cv/main_example.tex
-cv/*.txt
-cover_letters/cover_*.*
-cover_letters/Cover_*.*
+cv/**/*.txt
+cover_letters/**/cover_*.*
+cover_letters/**/Cover_*.*
 !cover_letters/cover_example.tex
 
 # documents/ subfolder contents are personal — only README and folder structure are tracked
@@ -86,6 +90,8 @@ documents/interview/**
 
 # Personal job search tracking
 job_search_tracker.csv
+# Dashboard seed generated from the tracker by tools/generate_dashboard_data.py
+dashboard-data.js
 
 # Gmail sync state (message IDs, subjects - personal data)
 gmail_sync/
